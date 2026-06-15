@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_layout_navbars",
+  "info": {
+    "displayName": "navbar",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "string"
+    },
+    "links": {
+      "type": "component",
+      "component": "shared.nav-link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

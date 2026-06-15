@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "animes",
+  "info": {
+    "singularName": "anime",
+    "pluralName": "animes",
+    "displayName": "Anime"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "episodes": {
+      "type": "integer"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "genre": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::genre.genre",
+      "inversedBy": "anime"
+    },
+    "bannerImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "releaseYear": {
+      "type": "biginteger"
+    },
+    "Running": {
+      "type": "enumeration",
+      "enum": [
+        "Ongoing",
+        "Completed"
+      ]
+    },
+    "studio": {
+      "type": "string"
+    }
+  }
+}

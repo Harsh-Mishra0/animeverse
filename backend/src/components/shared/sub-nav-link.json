@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_sub_nav_links",
+  "info": {
+    "displayName": "sub-nav-link",
+    "icon": "attachment"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

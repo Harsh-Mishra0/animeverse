@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_shared_nav_links",
+  "info": {
+    "displayName": "nav-link",
+    "icon": "attachment"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "isExternal": {
+      "type": "boolean"
+    },
+    "children": {
+      "type": "component",
+      "component": "shared.sub-nav-link",
+      "repeatable": true
+    },
+    "types": {
+      "type": "enumeration",
+      "enum": [
+        "default",
+        "genre",
+        "dropdown"
+      ]
+    }
+  },
+  "config": {}
+}

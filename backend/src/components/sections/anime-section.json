@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_anime_sections",
+  "info": {
+    "displayName": "anime-section",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "showFeaturedOnly": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

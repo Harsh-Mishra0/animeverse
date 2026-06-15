@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_mission_visions",
+  "info": {
+    "displayName": "mission-vision",
+    "icon": "attachment"
+  },
+  "options": {},
+  "attributes": {
+    "missionTitle": {
+      "type": "string"
+    },
+    "missionText": {
+      "type": "blocks"
+    },
+    "visionTitle": {
+      "type": "string"
+    },
+    "visionText": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

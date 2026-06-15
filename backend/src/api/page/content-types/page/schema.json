@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.hero",
+        "sections.anime-section",
+        "sections.mission-vision",
+        "sections.cta-section",
+        "sections.about-section"
+      ]
+    },
+    "showNavbar": {
+      "type": "boolean",
+      "default": true
+    },
+    "showFooter": {
+      "type": "boolean",
+      "default": true
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "string"
+    }
+  }
+}
