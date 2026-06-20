@@ -1,18 +1,33 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import AnimeDetailClient from "@/components/AnimeDetailClient";
-import AnimeSection from "@/components/AnimeSection";
-import { getStrapiMedia } from "@/lib/api";
+import AnimeDetailClient from "@/components/shared/AnimeDetailClient";
+import AnimeSection from "@/components/sections/AnimeSection";
+import { getImageUrl } from "@/lib/api";
 import { getAnimeByGenre, getAnimeBySlug } from "@/lib/getAnime";
 
-export default async function AnimePage({ params }: { params: Promise<{ slug?: string }> }) {
+type Props = {
+  params: Promise<{ slug?: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const anime = await getAnimeBySlug(slug)?.catch(() => null);
+
+  return {
+    title: anime?.title ? `${anime.title} - AnimeVerse` : "Anime - AnimeVerse",
+    description: anime?.description || `Watch and browse details for ${anime?.title || "anime"}.`,
+  };
+}
+
+export default async function AnimePage({ params }: Props) {
   const { slug } = await params;
   const anime = await getAnimeBySlug(slug)?.catch(() => null);
   if (!anime) notFound();
 
   const related = await getAnimeByGenre(anime?.genre?.slug, anime?.documentId)?.catch(() => []);
-  const bannerUrl = getStrapiMedia(anime?.bannerImage);
+  const bannerUrl = getImageUrl(anime?.bannerImage);
 
   return (
     <main className="min-h-screen">

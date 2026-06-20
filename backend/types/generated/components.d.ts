@@ -8,7 +8,9 @@ export interface LayoutNavbar extends Struct.ComponentSchema {
   };
   attributes: {
     links: Schema.Attribute.Component<'shared.nav-link', true>;
-    logo: Schema.Attribute.String;
+    logoAlt: Schema.Attribute.String;
+    logoImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logoLink: Schema.Attribute.String;
   };
 }
 
@@ -21,6 +23,7 @@ export interface SectionsAboutSection extends Struct.ComponentSchema {
   attributes: {
     description: Schema.Attribute.Blocks;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    layout: Schema.Attribute.Enumeration<['left', 'right']>;
     title: Schema.Attribute.String;
   };
 }
@@ -32,8 +35,33 @@ export interface SectionsAnimeSection extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
+    animes: Schema.Attribute.Relation<'oneToMany', 'api::anime.anime'>;
+    backgroundColor: Schema.Attribute.Enumeration<
+      ['light', 'dark', 'primary', 'transparent']
+    >;
+    cardStyle: Schema.Attribute.Enumeration<['default', 'glass', 'minimal']>;
+    columns: Schema.Attribute.Enumeration<['col2', 'col3', 'col4', 'col5']>;
     showFeaturedOnly: Schema.Attribute.Boolean;
+    showTitle: Schema.Attribute.Boolean;
+    textColor: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'light', 'dark']
+    >;
     title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['latest', 'featured', 'byGenre', 'manual']
+    >;
+  };
+}
+
+export interface SectionsContactInfo extends Struct.ComponentSchema {
+  collectionName: 'components_sections_contact_infos';
+  info: {
+    displayName: 'contact-info';
+    icon: 'code';
+  };
+  attributes: {
+    email: Schema.Attribute.Email;
+    message: Schema.Attribute.Text;
   };
 }
 
@@ -44,9 +72,18 @@ export interface SectionsCtaSection extends Struct.ComponentSchema {
     icon: 'connector';
   };
   attributes: {
+    backgroundColor: Schema.Attribute.Enumeration<
+      ['light', 'dark', 'primary', 'secondary']
+    >;
     buttonLink: Schema.Attribute.String;
+    buttonSize: Schema.Attribute.Enumeration<['small', 'medium', 'large']>;
     buttonText: Schema.Attribute.String;
+    buttonVariant: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'outline']
+    >;
+    openInNewTab: Schema.Attribute.Boolean;
     subtitle: Schema.Attribute.String;
+    textAlignment: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
     title: Schema.Attribute.String;
   };
 }
@@ -60,6 +97,18 @@ export interface SectionsFooter extends Struct.ComponentSchema {
   attributes: {
     copyright: Schema.Attribute.String;
     description: Schema.Attribute.Text;
+    logoImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
+export interface SectionsFormSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_form_sections';
+  info: {
+    displayName: 'form-section';
+  };
+  attributes: {
+    description: Schema.Attribute.Blocks;
+    fields: Schema.Attribute.Component<'shared.form-field', true>;
     title: Schema.Attribute.String;
   };
 }
@@ -71,9 +120,19 @@ export interface SectionsHero extends Struct.ComponentSchema {
     icon: 'command';
   };
   attributes: {
+    align: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
+    backgroundColor: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'light', 'dark', 'gradient', 'transparent']
+    >;
+    buttonLink: Schema.Attribute.String;
     buttonText: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    openInNewTab: Schema.Attribute.Boolean;
+    size: Schema.Attribute.Enumeration<['small', 'medium', 'large']>;
     subtitle: Schema.Attribute.Text;
+    textColor: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'light', 'dark', 'white', 'black']
+    >;
     title: Schema.Attribute.String;
   };
 }
@@ -92,6 +151,23 @@ export interface SectionsMissionVision extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedFormField extends Struct.ComponentSchema {
+  collectionName: 'components_shared_form_fields';
+  info: {
+    displayName: 'form-field';
+  };
+  attributes: {
+    lable: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    options: Schema.Attribute.JSON;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean;
+    type: Schema.Attribute.Enumeration<
+      ['text', 'email', 'textarea', 'select', 'checkbox', 'submit', 'dropdown']
+    >;
+  };
+}
+
 export interface SharedNavLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_nav_links';
   info: {
@@ -102,7 +178,6 @@ export interface SharedNavLink extends Struct.ComponentSchema {
     children: Schema.Attribute.Component<'shared.sub-nav-link', true>;
     isExternal: Schema.Attribute.Boolean;
     label: Schema.Attribute.String;
-    types: Schema.Attribute.Enumeration<['default', 'genre', 'dropdown']>;
     url: Schema.Attribute.String;
   };
 }
@@ -125,10 +200,13 @@ declare module '@strapi/strapi' {
       'layout.navbar': LayoutNavbar;
       'sections.about-section': SectionsAboutSection;
       'sections.anime-section': SectionsAnimeSection;
+      'sections.contact-info': SectionsContactInfo;
       'sections.cta-section': SectionsCtaSection;
       'sections.footer': SectionsFooter;
+      'sections.form-section': SectionsFormSection;
       'sections.hero': SectionsHero;
       'sections.mission-vision': SectionsMissionVision;
+      'shared.form-field': SharedFormField;
       'shared.nav-link': SharedNavLink;
       'shared.sub-nav-link': SharedSubNavLink;
     }

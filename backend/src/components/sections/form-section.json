@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_form_sections",
+  "info": {
+    "displayName": "form-section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "fields": {
+      "type": "component",
+      "component": "shared.form-field",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

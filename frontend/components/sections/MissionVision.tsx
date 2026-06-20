@@ -1,25 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { RichTextNode } from "@/lib/getPage";
-import RichText from "@/components/RichText";
+import type { PageSection } from "@/lib/getPage";
+import RichText from "@/components/shared/RichText";
+import { bgClass, textClass } from "@/lib/styleMap";
 
 type MissionVisionProps = {
-  missionTitle?: string;
-  missionText?: RichTextNode[];
-  visionTitle?: string;
-  visionText?: RichTextNode[];
+  section?: PageSection;
 };
 
 const cardTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 const cardHoverTransition = { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const };
 
-export default function MissionVision({
-  missionTitle,
-  missionText,
-  visionTitle,
-  visionText,
-}: MissionVisionProps) {
+export default function MissionVision({ section }: MissionVisionProps) {
+  const missionTitle = section?.missionTitle;
+  const missionText = section?.missionText;
+  const visionTitle = section?.visionTitle;
+  const visionText = section?.visionText;
+
   const hasMission = Boolean(missionTitle || missionText?.length);
   const hasVision = Boolean(visionTitle || visionText?.length);
 
@@ -27,10 +25,18 @@ export default function MissionVision({
     return null;
   }
 
+  // Fallback to premium theme background and white text if CMS parameters are absent
+  const bg = bgClass(section?.backgroundColor) || "bg-gradient-to-br from-[#151019] via-[#0b0b0b] to-violet-950/30";
+  const text = textClass(section?.textColor) || "text-white";
+
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#151019] via-[#0b0b0b] to-violet-950/30 px-6 py-20 lg:px-20 lg:py-24">
-      <div className="pointer-events-none absolute -left-32 top-1/2 size-80 -translate-y-1/2 rounded-full bg-fuchsia-600/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 top-1/3 size-80 rounded-full bg-violet-600/10 blur-3xl" />
+    <section className={`relative w-full overflow-hidden px-6 py-20 lg:px-20 lg:py-24 ${bg} ${text}`}>
+      {section?.backgroundColor !== "light" && (
+        <>
+          <div className="pointer-events-none absolute -left-32 top-1/2 size-80 -translate-y-1/2 rounded-full bg-fuchsia-600/10 blur-3xl" />
+          <div className="pointer-events-none absolute -right-32 top-1/3 size-80 rounded-full bg-violet-600/10 blur-3xl" />
+        </>
+      )}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -49,12 +55,12 @@ export default function MissionVision({
             className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-300 hover:border-fuchsia-300/30 hover:bg-white/[0.07] hover:shadow-[0_20px_60px_rgba(217,70,239,0.18)] sm:p-12"
           >
             {missionTitle ? (
-              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
                 {missionTitle}
               </h2>
             ) : null}
             {missionText?.length ? (
-              <div className="mt-6 max-w-4xl text-base text-white/80 sm:text-lg">
+              <div className="mt-6 max-w-4xl text-base opacity-80 sm:text-lg">
                 <RichText content={missionText} />
               </div>
             ) : null}
@@ -72,12 +78,12 @@ export default function MissionVision({
             className="w-full rounded-2xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-300 hover:border-violet-300/30 hover:bg-white/[0.07] hover:shadow-[0_20px_60px_rgba(139,92,246,0.18)] sm:p-12"
           >
             {visionTitle ? (
-              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
                 {visionTitle}
               </h2>
             ) : null}
             {visionText?.length ? (
-              <div className="mt-6 max-w-4xl text-base text-white/80 sm:text-lg">
+              <div className="mt-6 max-w-4xl text-base opacity-80 sm:text-lg">
                 <RichText content={visionText} />
               </div>
             ) : null}

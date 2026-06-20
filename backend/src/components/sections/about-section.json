@@ -21,6 +21,13 @@
         "videos",
         "audios"
       ]
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right"
+      ]
     }
   },
   "config": {}

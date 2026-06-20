@@ -40,11 +40,11 @@
     "featured": {
       "type": "boolean"
     },
-    "genre": {
+    "genres": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::genre.genre",
-      "inversedBy": "anime"
+      "mappedBy": "anime"
     },
     "bannerImage": {
       "type": "media",

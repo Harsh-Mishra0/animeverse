@@ -15,6 +15,9 @@
     "buttonText": {
       "type": "string"
     },
+    "buttonLink": {
+      "type": "string"
+    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -23,6 +26,47 @@
         "files",
         "videos",
         "audios"
+      ]
+    },
+    "openInNewTab": {
+      "type": "boolean"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "light",
+        "dark",
+        "white",
+        "black"
+      ]
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "light",
+        "dark",
+        "gradient",
+        "transparent"
+      ]
+    },
+    "align": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "size": {
+      "type": "enumeration",
+      "enum": [
+        "small",
+        "medium",
+        "large"
       ]
     }
   },

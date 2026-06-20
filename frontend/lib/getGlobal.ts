@@ -1,4 +1,4 @@
-import { fetchAPI, type Genre, type StrapiListResponse, type StrapiSingleResponse } from "./api";
+import { fetchAPI, type Genre, type StrapiListResponse, type StrapiSingleResponse, type StrapiImage } from "./api";
 
 export type NavChild = {
   id?: number;
@@ -19,6 +19,9 @@ export type NavLink = {
 export type NavbarData = {
   id?: number;
   logo?: string;
+  logoAlt?: string;
+  logoLink?: string;
+  logoImage?: StrapiImage | null;
   links?: NavLink[];
 };
 
@@ -27,6 +30,7 @@ export type FooterData = {
   title?: string;
   description?: string;
   copyright?: string;
+  logoImage?: StrapiImage | null;
 };
 
 export type GlobalData = {
@@ -36,7 +40,7 @@ export type GlobalData = {
 
 export async function getGlobal(): Promise<GlobalData | null> {
   const response = await fetchAPI<StrapiSingleResponse<GlobalData>>(
-    "/global?populate[navbar][populate][links][populate][children]=true&populate[footer]=true",
+    "/global?pLevel=5",
   );
 
   return response?.data ?? null;

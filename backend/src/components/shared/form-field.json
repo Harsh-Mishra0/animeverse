@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_shared_form_fields",
+  "info": {
+    "displayName": "form-field"
+  },
+  "options": {},
+  "attributes": {
+    "lable": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "email",
+        "textarea",
+        "select",
+        "checkbox",
+        "submit",
+        "dropdown"
+      ]
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "required": {
+      "type": "boolean"
+    },
+    "options": {
+      "type": "json"
+    }
+  },
+  "config": {}
+}

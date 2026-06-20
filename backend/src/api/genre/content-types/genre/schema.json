@@ -20,9 +20,9 @@
     },
     "anime": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::anime.anime",
-      "mappedBy": "genre"
+      "inversedBy": "genres"
     },
     "Image": {
       "type": "media",

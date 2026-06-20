@@ -6,7 +6,20 @@
   },
   "options": {},
   "attributes": {
-    "logo": {
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "logoAlt": {
+      "type": "string"
+    },
+    "logoLink": {
       "type": "string"
     },
     "links": {

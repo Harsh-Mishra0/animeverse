@@ -1,5 +1,12 @@
 import type { Core } from '@strapi/strapi';
 
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({});
+const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({
+  'strapi-v5-plugin-populate-deep': {
+    enabled: true,
+    config: {
+      defaultDepth: 5,
+    },
+  },
+});
 
 export default config;

@@ -9,6 +9,58 @@
     "title": {
       "type": "string"
     },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "latest",
+        "featured",
+        "byGenre",
+        "manual"
+      ]
+    },
+    "animes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::anime.anime"
+    },
+    "columns": {
+      "type": "enumeration",
+      "enum": [
+        "col2",
+        "col3",
+        "col4",
+        "col5"
+      ]
+    },
+    "cardStyle": {
+      "type": "enumeration",
+      "enum": [
+        "default",
+        "glass",
+        "minimal"
+      ]
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "light",
+        "dark"
+      ]
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "dark",
+        "primary",
+        "transparent"
+      ]
+    },
+    "showTitle": {
+      "type": "boolean"
+    },
     "showFeaturedOnly": {
       "type": "boolean"
     }

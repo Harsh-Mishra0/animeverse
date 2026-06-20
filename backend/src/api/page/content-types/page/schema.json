@@ -25,7 +25,10 @@
         "sections.anime-section",
         "sections.mission-vision",
         "sections.cta-section",
-        "sections.about-section"
+        "sections.about-section",
+        "sections.form-section",
+        "shared.form-field",
+        "sections.contact-info"
       ]
     },
     "showNavbar": {

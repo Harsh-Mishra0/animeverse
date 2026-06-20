@@ -19,14 +19,6 @@
       "type": "component",
       "component": "shared.sub-nav-link",
       "repeatable": true
-    },
-    "types": {
-      "type": "enumeration",
-      "enum": [
-        "default",
-        "genre",
-        "dropdown"
-      ]
     }
   },
   "config": {}

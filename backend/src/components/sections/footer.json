@@ -6,8 +6,15 @@
   },
   "options": {},
   "attributes": {
-    "title": {
-      "type": "string"
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
     "description": {
       "type": "text"

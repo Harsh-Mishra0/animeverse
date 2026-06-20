@@ -4,11 +4,80 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { getStrapiMedia, type Anime } from "@/lib/api";
+import { getImageUrl, type Anime, type StrapiImage } from "@/lib/api";
+import type { PageSection } from "@/lib/getPage";
+import { alignClass, bgClass, sizeClass, textClass } from "@/lib/styleMap";
 
 const slideDuration = 6000;
 
-export default function Hero({ anime }: { anime?: Anime[] }) {
+
+
+
+
+function StaticHero({ section }: { section: PageSection }) {
+  const bgUrl = getImageUrl(section?.image);
+
+  return (
+    <section
+      className={`relative w-full overflow-hidden ${sizeClass(section?.size)} ${bgClass(section?.backgroundColor)} flex items-center`}
+    >
+      {bgUrl ? (
+        <div className="absolute inset-0">
+          <Image
+            src={bgUrl}
+            alt={section?.image?.alternativeText ?? section?.title ?? ""}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+      ) : null}
+
+      <div
+        className={`relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-16 ${alignClass(section?.align)} ${textClass(section?.textColor)}`}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl space-y-5"
+          style={section?.align === "center" ? { margin: "0 auto" } : undefined}
+        >
+          {section?.title ? (
+            <h1 className="text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+              {section.title}
+            </h1>
+          ) : null}
+
+          {section?.subtitle ? (
+            <p className="max-w-xl text-lg leading-8 opacity-80 sm:text-xl">
+              {section.subtitle}
+            </p>
+          ) : null}
+
+          {section?.buttonText ? (
+            <Link
+              href={section?.buttonLink || (section?.buttonText?.toLowerCase() === "scroll to form" ? "#contact-form" : "/")}
+              target={section?.openInNewTab ? "_blank" : undefined}
+              rel={section?.openInNewTab ? "noreferrer" : undefined}
+              className="inline-flex rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 px-8 py-4 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-purple-500/30"
+            >
+              {section.buttonText}
+            </Link>
+          ) : null}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+
+
+
+
+function CarouselHero({ anime }: { anime: Anime[] }) {
   const slides = anime?.filter((item) => item?.bannerImage && item?.title) ?? [];
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -36,7 +105,7 @@ export default function Hero({ anime }: { anime?: Anime[] }) {
 
   const safeActiveIndex = slides?.length ? activeIndex % slides?.length : 0;
   const activeAnime = slides?.[safeActiveIndex];
-  const bannerUrl = getStrapiMedia(activeAnime?.bannerImage);
+  const bannerUrl = getImageUrl(activeAnime?.bannerImage);
 
   if (!activeAnime) return null;
 
@@ -156,4 +225,27 @@ export default function Hero({ anime }: { anime?: Anime[] }) {
       ) : null}
     </section>
   );
+}
+
+
+
+
+
+export type HeroProps = {
+  
+  section?: PageSection;
+  
+  anime?: Anime[];
+};
+
+export default function Hero({ section, anime }: HeroProps) {
+  if (anime?.length) {
+    return <CarouselHero anime={anime} />;
+  }
+
+  if (section) {
+    return <StaticHero section={section} />;
+  }
+
+  return null;
 }

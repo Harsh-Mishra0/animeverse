@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_contact_infos",
+  "info": {
+    "displayName": "contact-info",
+    "icon": "code"
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "message": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

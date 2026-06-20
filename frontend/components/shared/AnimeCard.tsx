@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { getStrapiMedia, type Anime } from "@/lib/api";
+import { getImageUrl, type Anime } from "@/lib/api";
 
 export default function AnimeCard({ anime }: { anime?: Anime | null }) {
-  const posterUrl = getStrapiMedia(anime?.image, "medium");
+  const posterUrl = getImageUrl(anime?.image, "medium");
   if (!anime?.slug) return null;
 
   return (

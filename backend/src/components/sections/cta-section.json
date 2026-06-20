@@ -17,6 +17,42 @@
     },
     "buttonLink": {
       "type": "string"
+    },
+    "buttonVariant": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "outline"
+      ]
+    },
+    "buttonSize": {
+      "type": "enumeration",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "openInNewTab": {
+      "type": "boolean"
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "dark",
+        "primary",
+        "secondary"
+      ]
+    },
+    "textAlignment": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
     }
   },
   "config": {}

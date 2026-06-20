@@ -440,6 +440,37 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnimeRequestAnimeRequest
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'anime_requests';
+  info: {
+    displayName: 'anime-request';
+    pluralName: 'anime-requests';
+    singularName: 'anime-request';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    formData: Schema.Attribute.JSON;
+    formName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::anime-request.anime-request'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    submittedAt: Schema.Attribute.Time;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAnimeAnime extends Struct.CollectionTypeSchema {
   collectionName: 'animes';
   info: {
@@ -460,7 +491,7 @@ export interface ApiAnimeAnime extends Struct.CollectionTypeSchema {
     description: Schema.Attribute.Text;
     episodes: Schema.Attribute.Integer;
     featured: Schema.Attribute.Boolean;
-    genre: Schema.Attribute.Relation<'manyToOne', 'api::genre.genre'>;
+    genres: Schema.Attribute.Relation<'manyToMany', 'api::genre.genre'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::anime.anime'> &
@@ -489,7 +520,7 @@ export interface ApiGenreGenre extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    anime: Schema.Attribute.Relation<'oneToMany', 'api::anime.anime'>;
+    anime: Schema.Attribute.Relation<'manyToMany', 'api::anime.anime'>;
     colorTheme: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -555,6 +586,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.mission-vision',
         'sections.cta-section',
         'sections.about-section',
+        'sections.form-section',
+        'shared.form-field',
+        'sections.contact-info',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -1087,6 +1121,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::anime-request.anime-request': ApiAnimeRequestAnimeRequest;
       'api::anime.anime': ApiAnimeAnime;
       'api::genre.genre': ApiGenreGenre;
       'api::global.global': ApiGlobalGlobal;

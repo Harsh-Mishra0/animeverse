@@ -35,6 +35,7 @@ export type Anime = {
   image?: StrapiImage | null;
   bannerImage?: StrapiImage | null;
   genre?: Genre | null;
+  genres?: Genre[] | null;
 };
 
 export type StrapiListResponse<T> = {
@@ -80,12 +81,26 @@ export async function fetchAPI<T>(
   return (await response?.json()) as T;
 }
 
+export function getImageUrl(
+  media?: string | StrapiImage | null,
+  format?: string,
+): string | null {
+  if (!media) return null;
+
+  let url: string | undefined;
+  if (typeof media === "string") {
+    url = media;
+  } else {
+    url = format ? media?.formats?.[format]?.url ?? media?.url : media?.url;
+  }
+
+  if (!url) return null;
+  return url.startsWith("http") ? url : `${STRAPI_URL}${url}`;
+}
+
 export function getStrapiMedia(
   media?: StrapiImage | null,
   format?: string,
 ): string | null {
-  const url = format ? media?.formats?.[format]?.url ?? media?.url : media?.url;
-
-  if (!url) return null;
-  return url?.startsWith("http") ? url : `${STRAPI_URL}${url}`;
+  return getImageUrl(media, format);
 }

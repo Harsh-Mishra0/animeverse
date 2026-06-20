@@ -1,21 +1,24 @@
-import AnimeSection from "@/components/AnimeSection";
-import Hero from "@/components/Hero";
-import StatsBar from "@/components/StatsBar";
-import { getAnimeList, getFeaturedAnime } from "@/lib/getAnime";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import SectionRenderer from "@/components/SectionRenderer";
+import { getPageBySlug } from "@/lib/getPage";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPageBySlug("home")?.catch(() => null);
+  return {
+    title: page?.seoTitle ?? page?.title ?? "Home - AnimeVerse",
+    description: page?.seoDescription ?? "Explore our premium anime database",
+  };
+}
 
 export default async function HomePage() {
-  const [featured, allAnime] = await Promise.all([
-    getFeaturedAnime()?.catch(() => []),
-    getAnimeList()?.catch(() => []),
-  ]);
-  const heroAnime = featured?.length ? featured : allAnime?.slice(0, 5);
+  const page = await getPageBySlug("home")?.catch(() => null);
+
+  if (!page) notFound();
 
   return (
     <main>
-      <Hero anime={heroAnime} />
-      <StatsBar totalAnime={allAnime?.length} />
-      <AnimeSection title="Featured" anime={featured} layout="scroll" viewAllHref="/browse" />
-      <AnimeSection title="All anime" anime={allAnime} layout="grid" viewAllHref="/browse" />
+      <SectionRenderer sections={page?.content} />
     </main>
   );
 }
